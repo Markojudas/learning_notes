@@ -227,3 +227,75 @@ export cost scoreboardReducer = createReducer(
     }))
 )
 ```
+
+Above, the reducer is handling 4 actions `[Scoreboard Page] Home Score` , `[Scoreboard Page] Away Score` , `[Scoreboard Page] Score Reset` , and `[Scoreboard Page] Set Scores` . Each action is strongly-typed. Each action handles the state transition immutably. This means that the state transitions are not modifying the original state, but are returning a new state object using the spread operator. The spread syntax copies the properties from the current state into the object, creating a new reference. This ensures that a new state is produced with each change, preserving the purity of the change. This also promotes referential integrity, guaranteeing that the old reference was discarded when a state change occurred. 
+
+> ***NOTE***: 
+> The [spread operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax) only does shallow copying and does not handle deeply nested objects. You need to copy each level in the object to ensure immutability. There are libraries that handle deep copying including [lodash](https://lodash.com/) and [immer](https://github.com/immerjs/immer).
+
+When an action is dispatched, *all registered reducers* receive the action. Whether they handle the action is determined by the `on` functions that associate one or more actions with a given state change.
+
+## Reducers. Registering root state
+
+The state of your application is defined as one large object. Registering reducer functions to manager parts of your state only defines keys with associated values in the object. To register the global `state` within your application, use the `StoreModule.forRoot()` method with a map of key/value pairs that define your state. The `StoreModule.forRoot()` registers the global providers for your application, including the `Store` service you inject into your components and services to dispatch actions and select pieces of state.
+
+```JS
+//app.module.ts
+
+import {
+    NgModule
+} from '@angular/core';
+import {
+    StoreModule
+} from '@ngrx/store';
+import {
+    scoreboardReducer
+} from './reducers/scoreboard.reducer';
+
+@NgModule({
+    imports: [
+        StoreModule.forRoot({
+            game: scoreboardReducer
+        });
+    ],
+})
+
+export class AppModule {}
+```
+
+Registering states with `StoreModule.forRoot()` ensures that the states are defined upon application startup. In general, you register root states that always need to be available to all areas of your application immediately.
+
+### Using the Standalone API
+
+Registering the root store and state can also be done using the standalone APIs if you are bootstrapping an Angular application using standalone features.
+
+```JS
+//main.ts
+
+import {
+    bootstrapApplication
+} from '@angular/platform-browser';
+import {
+    provideStore,
+    provideState
+} from '@ngrx/store';
+
+import {
+    AppComponent
+} from './app.component';
+import {
+    scoreboardReducer
+} from './reducers/scoreboard.reducer';
+
+bootstrapApplication(AppComponent, {
+    providers: [
+        provideStore(),
+        provideState({
+            game: scoreboardReducer
+        })
+    ],
+});
+```
+
+> **Note:**
+> Although you can register reducers in the `provideStore()` function, ngrx.io recommends keeping `provideStore()` empty and using the `provideState()` function to register feature states in the root `providers` array.
