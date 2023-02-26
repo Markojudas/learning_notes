@@ -355,3 +355,33 @@ This registers your application with an empty object for the root state.
 
 }
 ```
+
+Now use the `scoreboard` reducer with a feature `NgModule` named `ScoreboardModule` to register additional state.
+
+```JS
+//scoreboard.reducer.ts
+
+export const scoreboardFeatureKey = 'game';
+```
+
+```JS
+//scoreboard.module.ts
+
+import {
+    NgModule
+} from '@angular/core';
+import {
+    StoreModule
+} from '@ngrx/store';
+import {
+    scoreboardFeatureKey,
+    scoreboardReducer
+} from './reducers/scoreboard.reducer';
+
+@NgModule({
+    imports: [
+        StoreModule.forFeature(scoreboardFeatureKey, scoreboardReducer)
+    ],
+})
+export class ScoreboardModule {}
+```
