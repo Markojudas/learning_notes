@@ -121,7 +121,7 @@ The returned action has a very specific context about where the action came from
 
 Actions only responsibility are to express unique events and intents.
 
-## Reducers
+## Reducers {#reducers}
 
 Reducers in NgRx are responsible for handling transitions from one state to the next state in your application. Reducer functions handle these transitions by determining which actions to handle based on the action's type.
 
@@ -228,9 +228,9 @@ export cost scoreboardReducer = createReducer(
 )
 ```
 
-Above, the reducer is handling 4 actions `[Scoreboard Page] Home Score` , `[Scoreboard Page] Away Score` , `[Scoreboard Page] Score Reset` , and `[Scoreboard Page] Set Scores` . Each action is strongly-typed. Each action handles the state transition immutably. This means that the state transitions are not modifying the original state, but are returning a new state object using the spread operator. The spread syntax copies the properties from the current state into the object, creating a new reference. This ensures that a new state is produced with each change, preserving the purity of the change. This also promotes referential integrity, guaranteeing that the old reference was discarded when a state change occurred. 
+Above, the reducer is handling 4 actions `[Scoreboard Page] Home Score` , `[Scoreboard Page] Away Score` , `[Scoreboard Page] Score Reset` , and `[Scoreboard Page] Set Scores` . Each action is strongly-typed. Each action handles the state transition immutably. This means that the state transitions are not modifying the original state, but are returning a new state object using the spread operator. The spread syntax copies the properties from the current state into the object, creating a new reference. This ensures that a new state is produced with each change, preserving the purity of the change. This also promotes referential integrity, guaranteeing that the old reference was discarded when a state change occurred.
 
-> ***NOTE***: 
+> ***NOTE***:
 > The [spread operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax) only does shallow copying and does not handle deeply nested objects. You need to copy each level in the object to ensure immutability. There are libraries that handle deep copying including [lodash](https://lodash.com/) and [immer](https://github.com/immerjs/immer).
 
 When an action is dispatched, *all registered reducers* receive the action. Whether they handle the action is determined by the `on` functions that associate one or more actions with a given state change.
