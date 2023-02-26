@@ -299,3 +299,59 @@ bootstrapApplication(AppComponent, {
 
 > **Note:**
 > Although you can register reducers in the `provideStore()` function, ngrx.io recommends keeping `provideStore()` empty and using the `provideState()` function to register feature states in the root `providers` array.
+
+## Reducers. Registering feature state
+
+Feature states behave in the same way root states do, but allow you to define them with specific feature areas in your application. Your state is one large object, and feature states register additional keys and values in that object.
+
+Looking at an example state object, you see how a feature state allows your state to be built up incrementally. Start with an empty state object:
+
+```JS
+//app.module.ts
+
+import {
+    NgModule
+} from '@angular/core';
+import {
+    StoreModule
+} from '@ngrx/store';
+
+@NgModule({
+    imports: [
+        StoreModule.forRoot({})
+    ],
+})
+
+export class AppModule {}
+```
+
+Using the Standalone API:
+
+```JS
+//main.ts
+
+import {
+    bootstrapApplication
+} from '@angular/platform-browser';
+import {
+    provideStore
+} from '@ngrx/store';
+
+import {
+    AppComponent
+} from './app.component';
+
+bootstrapApplication(AppComponent, {
+    providers: [
+        providerStore()
+    ],
+});
+```
+
+This registers your application with an empty object for the root state.
+
+```JS
+{
+
+}
+```
