@@ -150,3 +150,74 @@ export const setScores = createAction('[Scoreboard Page] Set Scores', props < {
     game: Game
 } > ());
 ```
+
+Then, create a reducer file that imports the actions and define a shape for the piece of state.
+
+### Defining the state shape
+
+Each reducer function is a listener of actions. The scoreboard actions defined above describe the possible transitions handled by the reducer. Import multiple sets of actions to handle additional state transitions within a reducer.
+
+```JS
+//scoreboard.reducer.ts
+
+import {
+    Action,
+    createReducer,
+    on
+} from '@ngrx/store';
+import * as ScoreboardPageActions from '../actions/scoreboard-page.actions';
+
+export interface State {
+    home: number;
+    away: number
+}
+```
+
+You define the shape of the state according to what you are capturing, whether it be a single type such as a number, or a more complex object with multiple properties.
+
+### Setting the initial State
+
+The initial state gives the state an initial value, or provides a value if the current state is `undefined` . You set the initial state with defaults for your required state properties.
+
+Create and export a variable to capture the initial state with one or more defaults values.
+
+```JS
+//scoreboard.reducer.ts
+
+export const initialState: State = {
+    home: 0,
+    away: 0,
+}
+```
+
+The initial values for the `home` and `away` properties of the state are 0.
+
+### Creating the reducer function
+
+The reducer function's responsibility is to handle the state transitions in an immutable way. Create a reducer function that handles the actions for managing the state of the scoreboard using the `createReducer` function.
+
+```JS
+//scoreboard.reducer.ts
+
+export cost scoreboardReducer = createReducer(
+    initialState,
+    on(ScoreboardPageActions.homeScore, state => ({
+        ...state,
+        home: state.home + 1
+    })),
+    on(ScoreboardPageActions.awayScore, state => ({
+        ...state,
+        away: state.away + 1
+    })),
+    on(ScoreboardPageActions.resetScore, state => ({
+        home: 0,
+        away: 0
+    })),
+    on(ScoreboardPageActions.setScores, (state, {
+        game
+    }) => ({
+        home: game.home,
+        away: game.away
+    }))
+)
+```
