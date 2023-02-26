@@ -84,7 +84,10 @@ Example action of initiating a login request:
 
 ```JS
 //login-page.actions.ts
-import {} from '@ngrx/store';
+import {
+    createActions,
+    props
+} from '@ngrx/store';
 
 export const login = createAction(
     '[Login Page] Login',
@@ -141,7 +144,10 @@ First, define some actions for interacting with a piece of state:
 ```JS
 //scoreboard-page.actions.ts
 
-import {} from '@ngrx/store';
+import {
+    createAction,
+    props
+} from '@ngrx/store';
 
 export const homeScore = createAction('[Scoreboard Page] Home Score');
 export const awayScore = createAction('[Scoreboard Page] Away Score');
