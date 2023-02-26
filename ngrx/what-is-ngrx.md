@@ -108,10 +108,45 @@ onSubmit(username: string, password: string) {
 }
 ```
 
-The `login` action creator receives an object of `username` and `password` and returns a plain JavaScript object with a `type` property of `[Login Page] Login` , with `username` and `password` as addtional properties.
+The `login` action creator receives an object of `username` and `password` and returns a plain JavaScript object with a `type` property of `[Login Page] Login` , with `username` and `password` as additional properties.
 
 The returned action has a very specific context about where the action came from and what event happened.
 
 * The category of the action is captured within the square brackets `[]`.
 * The category is used to group actions for a particular area, whether it be a component page, backend API, or browser API.
 * The `Login` text after the category is a description about what event occurred from this action. In this case, the user clicked a login button from the login page to attempt to authenticate with a username and password.
+
+Actions only responsibility are to express unique events and intents.
+
+## Reducers
+
+Reducers in NgRx are responsible for handling transitions from one state to the next state in your application. Reducer functions handle these transitions by determining which actions to handle based on the action's type.
+
+## Reducers. Introduction
+
+Reducers are pure functions in that they produce the same output for a given input. They are without side effects and handle each state transition synchronously. Each reducer function takes the latest `Action` dispatched, the current state, and determines whether to return a newly modified state or the original state.
+
+## Reducers. The reducer function
+
+There are a few consistent parts of every piece of state managed by a reducer.
+
+* An interface or type that defines the shape of the state.
+* The arguments including the initial state or current state and the current action.
+* The functions that handle state changes for the associated actions(s).
+
+Example of a set of actions that handle the state of a scoreboard, and the associated reducer function.
+
+First, define some actions for interacting with a piece of state:
+
+```JS
+//scoreboard-page.actions.ts
+
+import {} from '@ngrx/store';
+
+export const homeScore = createAction('[Scoreboard Page] Home Score');
+export const awayScore = createAction('[Scoreboard Page] Away Score');
+export const resetScore = createAction('[Scoreboard Page] Score Reset');
+export const setScores = createAction('[Scoreboard Page] Set Scores', props < {
+    game: Game
+} > ());
+```
