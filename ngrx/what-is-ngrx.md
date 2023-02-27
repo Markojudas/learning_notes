@@ -16,7 +16,7 @@
   - [Registering feature state](#reducers-feature-state)
     - [Using the Standalone API](#feature-state-standalone)
 
-## What is NgRx? {#what-is-ngrx}
+## What is NgRx?
 
 NgRx is a framework for building reactive applications in Angular. NgRX provides libraries for:
 
