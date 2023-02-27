@@ -21,6 +21,9 @@
       - [Using the Standalone API](#root-state---using-the-standalone-api)
     - [Registering feature state](#reducers-registering-feature-state)
       - [Using the Standalone API](#feature-state---using-the-standalone-api)
+  - [Effects](#effects)
+    - [Introduction](#effects-introduction)
+    - [Key Concepts](#effects-key-concepts)
 
 ## What is NgRx?
 
@@ -478,3 +481,20 @@ After the feature is loaded, the `game` key becomes a property in the object and
   game: { home: 0, away: 0}
 }
 ```
+
+Whether your feature states are loaded eagerly or lazily depends on the needs of your application. You use feature states to build up your state object over time and through different feature areas.
+
+## Effects
+
+Effects are an RxJs powered side effect model for [Store](https://ngrx.io/guide/store). Effects use streams to provide [new sources](https://martinfowler.com/eaaDev/EventSourcing.html) of actions to reduce state based on external interactions such as network requests, web sockets messages and time-based events.
+
+### Effects. Introduction
+
+In a service-based Angular application, components are responsible for interacting with external directly through services. Instead, effects provide a way to interact with though services and isolate them from the components. Effects are where you handle tasks such as fetching data, long-running tasks that produce multiple events, and other external interactions where your components don't need explicit knowledge of these interactions.
+
+### Effects. Key Concepts
+
+- Effects isolate side effects from components, allowing for more _pure_ components that select state and dispatch actions.
+- Effects are long-running services that listen to an observable of _every_ action dispatched from the Store.
+- Effects filter those actions based on the type of action they are interested in. This is done by using an operator.
+- Effects perform tasks, which are synchronous or asynchronous and return a new action.
