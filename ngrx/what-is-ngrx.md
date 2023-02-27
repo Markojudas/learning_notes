@@ -13,7 +13,8 @@
     - [Creating the reducer function](#creating-the-reducer-function)
   - [Registering root state](#reducers-root-state)
     - [Using the Standalone API](#root-state-standalone)
-  - [Registering feature state](#feature-state-standalone)
+  - [Registering feature state](#reducers-feature-state)
+    - [Using the Standalone API](#feature-state-standalone)
 
 ## What is NgRx? {#what-is-ngrx}
 
