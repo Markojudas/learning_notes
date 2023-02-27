@@ -13,14 +13,14 @@
     - [Writing actions](#actions-writing-actions)
   - [Reducers](#reducers)
     - [Introduction](#reducers-introduction)
-    - [Reducers. The reducer function](#reducers-the-reducer-function)
+    - [The reducer function](#reducers-the-reducer-function)
       - [Defining the state shape](#defining-the-state-shape)
       - [Setting the initial State](#setting-the-initial-state)
       - [Creating the reducer function](#creating-the-reducer-function)
     - [Registering root state](#reducers-registering-root-state)
-      - [Root state - Using the Standalone API](#root-state---using-the-standalone-api)
+      - [Using the Standalone API](#root-state---using-the-standalone-api)
     - [Registering feature state](#reducers-registering-feature-state)
-      - [Feature state - Using the Standalone API](#feature-state---using-the-standalone-api)
+      - [Using the Standalone API](#feature-state---using-the-standalone-api)
 
 ## What is NgRx?
 
