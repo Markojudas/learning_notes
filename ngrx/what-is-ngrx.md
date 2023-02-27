@@ -2,19 +2,19 @@
 
 - [What is NgRx](#what-is-ngrx)
 - [Actions](#actions)
-  - [Introduction](#actions-intro)
-  - [The Action interface](#actions-interface)
+  - [Introduction](#actions-introduction)
+  - [The Action interface](#actions-the-action-interface)
   - [Writing Actions](#actions-writing-actions)
 - [Reducers](#reducers)
-  - [Introduction](#reducers-intro)
-  - [The reducer function](#reducers-function)
+  - [Introduction](#reducers-introduction)
+  - [The reducer function](#reducers-the-reducer-function)
     - [Defining the state shape](#defining-the-state-shape)
     - [Setting the initial state](#setting-the-initial-state)
     - [Creating the reducer function](#creating-the-reducer-function)
-  - [Registering root state](#reducers-root-state)
-    - [Using the Standalone API](#root-state-standalone)
-  - [Registering feature state](#reducers-feature-state)
-    - [Using the Standalone API](#feature-state-standalone)
+  - [Registering root state](#reducers-registering-root-state)
+    - [Using the Standalone API](#using-the-standalone-api-root-state-standalone)
+  - [Registering feature state](#reducers-registering-feature-state)
+    - [Using the Standalone API](#using-the-standalone-api-feature-state-standalone)
 
 ## What is NgRx?
 
@@ -51,15 +51,15 @@ NgRX packages are divided into a few main categories.
 - Schematics - Scaffolding library for Angular applications using NgRx libraries.
 - ESlint Plugin - ESLint rules to warn against bad practices. It also contains few automatic fixes to enforce a consistent style, and to promote best practice.
 
-## Actions {#actions}
+## Actions
 
 Actions are one of the main building blocks in NgRx. Actions express _unique events_ that happen throughout your application. From user interaction with the page, external interaction through network requests, and direct interaction with device APIs, these and more events are described with actions.
 
-## Actions. Introduction {#actions-intro}
+## Actions. Introduction
 
 Actions are used in many areas of NgRx. Actions are inputs and outputs of many systems in NgRx. Actions help you to understand how events are handled in your application.
 
-## Actions. The Action interface {#actions-interface}
+## Actions. The Action interface
 
 An `Action` in NgRx is made up of a simple interface:
 
@@ -88,7 +88,7 @@ This action describes an event triggered by a successful authentication after in
 
 This action describes an event triggered by a user clicking a login button from the login page to attempt to authenticate a user. The username and password are defined as additional metadata provided from the login page.
 
-## Actions. Writing actions {#actions-writing-actions}
+## Actions. Writing actions
 
 There are a few rules to writing good actions within your application.
 
@@ -139,15 +139,15 @@ The returned action has a very specific context about where the action came from
 
 Actions only responsibility are to express unique events and intents.
 
-## Reducers {#reducers}
+## Reducers
 
 Reducers in NgRx are responsible for handling transitions from one state to the next state in your application. Reducer functions handle these transitions by determining which actions to handle based on the action's type.
 
-## Reducers. Introduction {#reducers-intro}
+## Reducers. Introduction
 
 Reducers are pure functions in that they produce the same output for a given input. They are without side effects and handle each state transition synchronously. Each reducer function takes the latest `Action` dispatched, the current state, and determines whether to return a newly modified state or the original state.
 
-## Reducers. The reducer function {#reducers-function}
+## Reducers. The reducer function
 
 There are a few consistent parts of every piece of state managed by a reducer.
 
@@ -177,7 +177,7 @@ export const setScores = createAction('[Scoreboard Page] Set Scores', props < {
 
 Then, create a reducer file that imports the actions and define a shape for the piece of state.
 
-### Defining the state shape {#defining-state-shape}
+### Defining the state shape
 
 Each reducer function is a listener of actions. The scoreboard actions defined above describe the possible transitions handled by the reducer. Import multiple sets of actions to handle additional state transitions within a reducer.
 
@@ -199,7 +199,7 @@ export interface State {
 
 You define the shape of the state according to what you are capturing, whether it be a single type such as a number, or a more complex object with multiple properties.
 
-### Setting the initial State {#setting-the-initial-state}
+### Setting the initial State
 
 The initial state gives the state an initial value, or provides a value if the current state is `undefined` . You set the initial state with defaults for your required state properties.
 
@@ -216,7 +216,7 @@ export const initialState: State = {
 
 The initial values for the `home` and `away` properties of the state are 0.
 
-### Creating the reducer function {#creating-the-reducer-function}
+### Creating the reducer function
 
 The reducer function's responsibility is to handle the state transitions in an immutable way. Create a reducer function that handles the actions for managing the state of the scoreboard using the `createReducer` function.
 
@@ -253,7 +253,7 @@ Above, the reducer is handling 4 actions `[Scoreboard Page] Home Score` , `[Scor
 
 When an action is dispatched, _all registered reducers_ receive the action. Whether they handle the action is determined by the `on` functions that associate one or more actions with a given state change.
 
-## Reducers. Registering root state {#reducers-root-state}
+## Reducers. Registering root state
 
 The state of your application is defined as one large object. Registering reducer functions to manager parts of your state only defines keys with associated values in the object. To register the global `state` within your application, use the `StoreModule.forRoot()` method with a map of key/value pairs that define your state. The `StoreModule.forRoot()` registers the global providers for your application, including the `Store` service you inject into your components and services to dispatch actions and select pieces of state.
 
@@ -318,7 +318,7 @@ bootstrapApplication(AppComponent, {
 > **Note:**
 > Although you can register reducers in the `provideStore()` function, ngrx.io recommends keeping `provideStore()` empty and using the `provideState()` function to register feature states in the root `providers` array.
 
-## Reducers. Registering feature state {#reducers-feature-state}
+## Reducers. Registering feature state
 
 Feature states behave in the same way root states do, but allow you to define them with specific feature areas in your application. Your state is one large object, and feature states register additional keys and values in that object.
 
