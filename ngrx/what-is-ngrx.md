@@ -2,11 +2,11 @@
 
 NgRx is a framework for building reactive applications in Angular. NgRX provides libraries for:
 
-* Managing global and local state.
-* Isolation of side effects to promote a cleaner component architecture.
-* Entity collection management.
-* Integration with the Angular Router.
-* Developer tooling that enhances developer experience when building many different types of applications.
+- Managing global and local state.
+- Isolation of side effects to promote a cleaner component architecture.
+- Entity collection management.
+- Integration with the Angular Router.
+- Developer tooling that enhances developer experience when building many different types of applications.
 
 ## Packages
 
@@ -14,28 +14,28 @@ NgRX packages are divided into a few main categories.
 
 ## State
 
-* Store - RxJs powered global state management for Angular apps, inspired by Redux.
-* Effects - Side effect model for @ngrx/store.
-* Router Store - Bindings to connect the Angular Router to @ngrx/store.
-* Entity - Entity State adapter for managing record collections.
+- Store - RxJs powered global state management for Angular apps, inspired by Redux.
+- Effects - Side effect model for @ngrx/store.
+- Router Store - Bindings to connect the Angular Router to @ngrx/store.
+- Entity - Entity State adapter for managing record collections.
 
 ## Data
 
-* Data - Extension for simplified entity data management.
+- Data - Extension for simplified entity data management.
 
 ## View
 
-* Component - Extension for building reactive Angular templates.
+- Component - Extension for building reactive Angular templates.
 
 ## Developer Tools
 
-* Store Devtools - Instrumentation for @ngrx/store that enables visual tracking of state and time-travel debugging.
-* Schematics - Scaffolding library for Angular applications using NgRx libraries.
-* ESlint Plugin - ESLint rules to warn against bad practices. It also contains few automatic fixes to enforce a consistent style, and to promote best practice.
+- Store Devtools - Instrumentation for @ngrx/store that enables visual tracking of state and time-travel debugging.
+- Schematics - Scaffolding library for Angular applications using NgRx libraries.
+- ESlint Plugin - ESLint rules to warn against bad practices. It also contains few automatic fixes to enforce a consistent style, and to promote best practice.
 
 ## Actions
 
-Actions are one of the main building blocks in NgRx. Actions express *unique events* that happen throughout your application. From user interaction with the page, external interaction through network requests, and direct interaction with device APIs, these and more events are described with actions.\
+Actions are one of the main building blocks in NgRx. Actions express _unique events_ that happen throughout your application. From user interaction with the page, external interaction through network requests, and direct interaction with device APIs, these and more events are described with actions.
 
 ## Actions. Introduction
 
@@ -74,11 +74,11 @@ This action describes an event triggered by a user clicking a login button from 
 
 There are a few rules to writing good actions within your application.
 
-* Upfront - write actions before developing features to understand and gain a shared knowledge of the feature being implemented.
-* Divide - categorize actions based on the event source.
-* Many - actions are inexpensive to write, so the more actions you write, the better you express flows in your application.
-* Event-Driven - capture events **not** commands as you are separating the description of an event and the handling of that event.
-* Descriptive - provide context that are targeted to a unique event with more detailed information you can use to aid in debugging with the developer tools.
+- Upfront - write actions before developing features to understand and gain a shared knowledge of the feature being implemented.
+- Divide - categorize actions based on the event source.
+- Many - actions are inexpensive to write, so the more actions you write, the better you express flows in your application.
+- Event-Driven - capture events **not** commands as you are separating the description of an event and the handling of that event.
+- Descriptive - provide context that are targeted to a unique event with more detailed information you can use to aid in debugging with the developer tools.
 
 Example action of initiating a login request:
 
@@ -115,9 +115,9 @@ The `login` action creator receives an object of `username` and `password` and r
 
 The returned action has a very specific context about where the action came from and what event happened.
 
-* The category of the action is captured within the square brackets `[]`.
-* The category is used to group actions for a particular area, whether it be a component page, backend API, or browser API.
-* The `Login` text after the category is a description about what event occurred from this action. In this case, the user clicked a login button from the login page to attempt to authenticate with a username and password.
+- The category of the action is captured within the square brackets `[]`.
+- The category is used to group actions for a particular area, whether it be a component page, backend API, or browser API.
+- The `Login` text after the category is a description about what event occurred from this action. In this case, the user clicked a login button from the login page to attempt to authenticate with a username and password.
 
 Actions only responsibility are to express unique events and intents.
 
@@ -133,9 +133,9 @@ Reducers are pure functions in that they produce the same output for a given inp
 
 There are a few consistent parts of every piece of state managed by a reducer.
 
-* An interface or type that defines the shape of the state.
-* The arguments including the initial state or current state and the current action.
-* The functions that handle state changes for the associated actions(s).
+- An interface or type that defines the shape of the state.
+- The arguments including the initial state or current state and the current action.
+- The functions that handle state changes for the associated actions(s).
 
 Example of a set of actions that handle the state of a scoreboard, and the associated reducer function.
 
@@ -230,10 +230,10 @@ export cost scoreboardReducer = createReducer(
 
 Above, the reducer is handling 4 actions `[Scoreboard Page] Home Score` , `[Scoreboard Page] Away Score` , `[Scoreboard Page] Score Reset` , and `[Scoreboard Page] Set Scores` . Each action is strongly-typed. Each action handles the state transition immutably. This means that the state transitions are not modifying the original state, but are returning a new state object using the spread operator. The spread syntax copies the properties from the current state into the object, creating a new reference. This ensures that a new state is produced with each change, preserving the purity of the change. This also promotes referential integrity, guaranteeing that the old reference was discarded when a state change occurred.
 
-> ***NOTE***:
+> **_NOTE_**:
 > The [spread operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax) only does shallow copying and does not handle deeply nested objects. You need to copy each level in the object to ensure immutability. There are libraries that handle deep copying including [lodash](https://lodash.com/) and [immer](https://github.com/immerjs/immer).
 
-When an action is dispatched, *all registered reducers* receive the action. Whether they handle the action is determined by the `on` functions that associate one or more actions with a given state change.
+When an action is dispatched, _all registered reducers_ receive the action. Whether they handle the action is determined by the `on` functions that associate one or more actions with a given state change.
 
 ## Reducers. Registering root state
 
@@ -384,4 +384,73 @@ import {
     ],
 })
 export class ScoreboardModule {}
+```
+
+### Using the Standalone API (feature state)
+
+Feature states are registered in the `providers` array of the route config.
+
+```JS
+//game-routs.ts
+
+import { Route } from '@angular/router';
+import { provideState } from '@ngrx/store';
+
+import { scoreboardFeatureKey, scoreboardReducer } from './reducers/scoreboard.reducer';
+
+export const routes: Route[] = [
+  {
+    path: 'scoreboard',
+    providers: [
+      provideState({ [scoreboardFeatureKey]: scoreboardReducer  })
+    ]
+  }
+];
+```
+
+> **Note:**
+> It is recommended to abstract a feature key string to prevent hardcoding strings when registering feature state and calling `createFeatureSelector`. Alternatively, you can use a [Feature Creator](https://ngrx.io/guide/store/feature-creators) which automatically generates selectors for your feature state.
+
+Add the `ScoreboardModule` to the `AppModule` to load the state eagerly.
+
+```JS
+//app.module.ts
+
+import { NgModule } from '@angular/core';
+import { StoreModule } from '@ngrx/store';
+import { ScoreboardModule } from './scoreboard/scoreboard.module';
+
+@NgModule({
+  imports: [
+    StoreModule.forRoot({}),
+    ScoreboardModule
+  ],
+})
+export class AppModule {}
+```
+
+Using the Standalone API, register the feature state on application bootstrap.
+
+```JS
+//main.ts
+
+import { bootstrapApplication } from '@angular/platform-browser';
+import { provideStore } from '@ngrx/store';
+
+import { AppComponent } from './app.component';
+import { scoreboardFeatureKey, scoreboardReducer } from './reducers/scoreboard.reducer';
+
+bootstrapApplication(AppComponent, {
+  providers: [
+    provideStore({ [scoreboardFeatureKey]: scoreboardReducer }),
+  ]
+});
+```
+
+After the feature is loaded, the `game` key becomes a property in the object and is now managed in the state.
+
+```JS
+{
+  game: { home: 0, away: 0}
+}
 ```
