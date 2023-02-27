@@ -498,3 +498,9 @@ In a service-based Angular application, components are responsible for interacti
 - Effects are long-running services that listen to an observable of _every_ action dispatched from the Store.
 - Effects filter those actions based on the type of action they are interested in. This is done by using an operator.
 - Effects perform tasks, which are synchronous or asynchronous and return a new action.
+
+### Effects. Installation
+
+`npm install @ngrx/effects --save`
+
+### Effects. Comparison with component-based side effects
