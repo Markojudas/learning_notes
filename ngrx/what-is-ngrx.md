@@ -1,20 +1,26 @@
 # NGRX
 
-- [What is NgRx](#what-is-ngrx)
-- [Actions](#actions)
-  - [Introduction](#actions-introduction)
-  - [The Action interface](#actions-the-action-interface)
-  - [Writing Actions](#actions-writing-actions)
-- [Reducers](#reducers)
-  - [Introduction](#reducers-introduction)
-  - [The reducer function](#reducers-the-reducer-function)
+- [NGRX](#ngrx)
+  - [What is NgRx?](#what-is-ngrx)
+  - [Packages](#packages)
+  - [State](#state)
+  - [Data](#data)
+  - [View](#view)
+  - [Developer Tools](#developer-tools)
+  - [Actions](#actions)
+  - [Actions. Introduction](#actions-introduction)
+  - [Actions. The Action interface](#actions-the-action-interface)
+  - [Actions. Writing actions](#actions-writing-actions)
+  - [Reducers](#reducers)
+  - [Reducers. Introduction](#reducers-introduction)
+  - [Reducers. The reducer function](#reducers-the-reducer-function)
     - [Defining the state shape](#defining-the-state-shape)
-    - [Setting the initial state](#setting-the-initial-state)
+    - [Setting the initial State](#setting-the-initial-state)
     - [Creating the reducer function](#creating-the-reducer-function)
-  - [Registering root state](#reducers-registering-root-state)
-    - [Using the Standalone API](#using-the-standalone-api-root-state-standalone)
-  - [Registering feature state](#reducers-registering-feature-state)
-    - [Using the Standalone API](#using-the-standalone-api-feature-state-standalone)
+  - [Reducers. Registering root state](#reducers-registering-root-state)
+    - [Root state - Using the Standalone API](#root-state---using-the-standalone-api)
+  - [Reducers. Registering feature state](#reducers-registering-feature-state)
+    - [Feature state - Using the Standalone API](#feature-state---using-the-standalone-api)
 
 ## What is NgRx?
 
@@ -283,7 +289,7 @@ export class AppModule {}
 
 Registering states with `StoreModule.forRoot()` ensures that the states are defined upon application startup. In general, you register root states that always need to be available to all areas of your application immediately.
 
-### Using the Standalone API {#root-state-standalone}
+### Root state - Using the Standalone API
 
 Registering the root store and state can also be done using the standalone APIs if you are bootstrapping an Angular application using standalone features.
 
@@ -404,7 +410,7 @@ import {
 export class ScoreboardModule {}
 ```
 
-### Using the Standalone API {#feature-state-standalone}
+### Feature state - Using the Standalone API
 
 Feature states are registered in the `providers` array of the route config.
 
