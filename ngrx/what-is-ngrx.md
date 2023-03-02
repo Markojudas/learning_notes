@@ -583,3 +583,48 @@ export class MoviesPageComponent {
   }
 }
 ```
+
+The movies are still fetched through the `MoviesService`, but the component is no longer concerned with how the movies are fetched and loaded. It's only responsible for declaring its _intent_ to load movies and using selectors to access movie list data. Effects are where the asynchronous activity of fetching movies happens. the component becomes easier to test and less responsible for the data it needs.
+
+### Effects. Writing Effects
+
+To isolate side-effects from your components, an `Effects` class must be created to listen for events and perform tasks.
+
+Effects are injectable services classes with distinct parts:
+
+- An injectable `Actions` service that provides an observable stream of _each_ action dispatched _after_ the latest state has been reduced.
+- Metadata is attached to the observable streams using the `createEffect` function. The metadata is used to register the streams that are subscribed to the store. Any action returned from the effect stream is then dispatched back to the `Store`.
+- Actions are filtered using a pipeable ofType operator. The `ofType` operator takes one or more action types as arguments to filter on which actions to act upon.
+- Effects are subscribed to the `Store` observable.
+- Services are injected into effects to interact with external APIs and handle streams.
+
+To Show how you handle loading movies from the example above, let's look at `MovieEffects`.
+
+```JS
+//movie.effects.ts
+
+import { Injectable } from '@angular/core';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { EMPTY } from 'rxjs';
+import { map, exhaustMap, catchError } from 'rxjs/operators';
+import { MoviesService } from './movies.service';
+
+@Injectable()
+export class MovieEffects {
+
+  loadMovies$ = createEffect(() => this.action$.pipe(
+    ofType('[Movies Page] Load Movies'),
+    exhaustMap(() => this.moviesService.getAll()
+    .pipe(
+      map(movies => ({ type: '[Movies API] Movies Loaded Success', payload: movies })),
+      catchError(() => EMPTY)
+      ))
+    )
+  );
+
+  constructor (
+    private action$: Actions,
+    private moviesService: MoviesService
+  ) {}
+}
+```
