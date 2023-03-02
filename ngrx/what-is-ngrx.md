@@ -24,6 +24,8 @@
   - [Effects](#effects)
     - [Introduction](#effects-introduction)
     - [Key Concepts](#effects-key-concepts)
+    - [Installation](#effects-installation)
+    - [Comparison with component-based side effects](#effects-comparison-with-component-based-side-effects)
 
 ## What is NgRx?
 
@@ -504,3 +506,48 @@ In a service-based Angular application, components are responsible for interacti
 `npm install @ngrx/effects --save`
 
 ### Effects. Comparison with component-based side effects
+
+In a service-based application, your components interact with data through many different services that expose data through properties and methods. These services may depend on other services that manage other sets of data. Your components consume these services to perform tasks, giving your components many responsibilities.
+
+Imagine an application that manages movies. Here is a component that fetches and displays a list of movies.
+
+```JS
+//movies-page.component.ts
+
+@Component({
+  template: `
+    <li *ngFor="let movie of movies"
+      {{ movie.name }}
+    </li>
+  `
+})
+
+export class MoviesPageComponent {
+  movies: Movie[];
+
+  constructor(private movieService: MoviesService) {}
+
+  ngOnIt(){
+    this.movieService.getAll().subscribe(movies => this.movies = movies);
+  }
+}
+```
+
+Also the corresponding service that handles the fetching of movies.
+
+```JS
+//movies.service.ts
+
+@Injectable({
+  provideIn: 'root'
+})
+
+export class MoviesService {
+
+  constructor (private http: HttpClient) {}
+
+  getAll(){
+    return this.http.get("/movies");
+  }
+}
+```
