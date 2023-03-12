@@ -91,7 +91,7 @@ const promise = new Promise(function(resolve, reject){});
 <!-- markdownlint-disable -->
 <p align="center">
     <img src="./img/typescript_promise.png">
-    <p>
+    <p align="center">
     <code>Promise and then() call</code>
     </p>
 </p>
