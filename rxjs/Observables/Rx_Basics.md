@@ -5,6 +5,7 @@
   - [Variables](#variables)
   - [Array](#array)
   - [Promise](#promise)
+  - [TypeScript promise](#typescript-promise)
 
 ## Intro
 
@@ -61,3 +62,35 @@ This is an example of a promise.
 ```JS
 let userRequest = getUserFromAPI();
 ```
+
+Like a variable, `userRequest` contains a single value, but it doesn't immediately have that value. A promise represents data that has been requested but isn't there yet.
+To do anything with that data, we need to unwrap the promise using the `.then` method:
+
+```JS
+let userRequest = getUserFromAPI();
+userRequest.then(userData => {
+    //called when the request returns
+    processUser(userData);
+})
+```
+
+> Acting as **"mental node"**, a promise allows the core process to go on doing things elsewhere while the backend rustles through various database indexes looking for our user.
+> Once the request returns, our process peeks inside the `.then` to see what to do, executing whatever function we passed in.
+
+## TypeScript promise
+
+A promise accepts a **callback** function as a parameter. THe callback function accepts 2 parameters, `resolve` and `reject`. If the task is successfully performed, then it returns `resolved`.
+Else it returns the `reject`.
+
+This is how a promise in typescript looks like:
+
+```typescript
+const promise = new Promise(function(resolve, reject){});
+```
+
+<!-- markdownlint-disable -->
+<p style="text-align: center;">
+    <img src="./img/typescript_promise.png">
+</p>
+<!-- markdownlint-enable -->
+
