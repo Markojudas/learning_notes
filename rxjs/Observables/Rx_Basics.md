@@ -89,7 +89,7 @@ const promise = new Promise(function(resolve, reject){});
 ```
 
 <!-- markdownlint-disable -->
-<p style="text-align: center;">
+<p align="center">
     <img src="./img/typescript_promise.png">
 </p>
 <!-- markdownlint-enable -->
