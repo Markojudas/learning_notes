@@ -22,3 +22,7 @@ JavaScript's async-first design has been both a blessing and a curse. While the 
 I will learn how to delegate both the calls and control flow to RXJS, allowing me to focus on the rest of my application.
 
 ## State management
+
+RxJS compartmentalizes your eventing flows, encapsulating each action in a single function. Building on top of this, RxJS also provides many helper operators that keep an internal state, allowing you to outsource your state worries to the library.
+
+In addition to these operators, I will learn about NgRx, a state management library built on top of RxJS in Advanced Angular.
