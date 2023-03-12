@@ -7,6 +7,7 @@
   - [Promise](#promise)
   - [TypeScript promise](#typescript-promise)
   - [Observable](#observable)
+    - [Subscribe](#subscribe)
 
 ## Intro
 
@@ -138,3 +139,18 @@ let myObs$ = clicksOnButton(myButton);
 > You'll notice that there's an odd dollar sign ($) hanging onto the end of the variable name. This is a convention in the Rx world that indicates that the variable in question
 > is **observable**.
 
+These clicks will happen over the lifetime of the application (imagine designing a web app that expects every click to happen at once!).
+
+### Subscribe
+
+Much like a promise , we need to unwrap our observable to access the values it contains. The observable unwrapping method is called **subscribe**. The function
+passed into **subscribe** is called every time the observable emits a value (in this case, a message is logged to the console any time the button is clicked).
+
+```JS
+let myObs$ = clicksOnButton(myButton);
+myObs$
+.subscribe(clickEvent => console.log("The button was clicked!"));
+```
+
+One thing to note here is the observables under RxJS are **lazy**. This means that if there's no subscribe call on `myObs$`, no click event handler is created.
+Observables only run when they know someone's listening to the data they're entering.
