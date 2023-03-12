@@ -6,6 +6,7 @@
   - [Array](#array)
   - [Promise](#promise)
   - [TypeScript promise](#typescript-promise)
+  - [Observable](#observable)
 
 ## Intro
 
@@ -88,12 +89,52 @@ This is how a promise in typescript looks like:
 const promise = new Promise(function(resolve, reject){});
 ```
 
-<!-- markdownlint-disable -->
+<!-- markdownlint-disable MD033 -->
 <p align="center">
     <img src="./img/typescript_promise.png">
     <p align="center">
-    <code>Promise and then() call</code>
+        <code>Promise and then() call</code>
     </p>
 </p>
-<!-- markdownlint-enable -->
+
+Below is a working example of a promise written in TypeScript.
+
+```typescript
+function asyncFun(){//a promise
+    const promise = new Promise(function(resolve, reject){
+        setTimeout(()=> {
+            console.log("Console from Promise function");
+            resolve();
+        }, 3000);
+    });
+    return promise;
+}
+// when asyncFun() Promise is returned after executing setTimeout() function,
+// process peeks inside .then() to print the success message.
+asyncFun().then(function(success){
+    console.log("Promise returned Successfully !!!");
+})
+.catch(function(error){
+    //error handler is called when promise gets rejected.
+    console.log("error");
+});
+```
+
+## Observable
+
+Observable are like arrays because they represent a collection of events but are also like promises as they're asynchronous: each event in the collection arrives
+at some indeterminate point in the future.
+
+This is distinct from a collection of promises (like `Promise.all`) as an observable can handle an arbitrary number of events, and a promise can only track one thing.
+
+An observable can be used to model clicks of a button. It represents all the clicks that will happen over the application's lifetime, but the clicks will happen at some
+point in the future that we can't predict.
+
+```JS
+let myObs$ = clicksOnButton(myButton);
+```
+
+> Why is there a Dollar Sign?
+> You'll notice that there's an odd dollar sign ($) hanging onto the end of the variable name. This is a convention in the Rx world that indicates that the variable in question
+> is **observable**.
 
