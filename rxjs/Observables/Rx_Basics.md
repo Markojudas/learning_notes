@@ -81,13 +81,13 @@ userRequest.then(userData => {
 
 ## TypeScript promise
 
-A promise accepts a **callback** function as a parameter. THe callback function accepts 2 parameters, `resolve` and `reject`. If the task is successfully performed, then it returns `resolved`.
-Else it returns the `reject`.
+A promise accepts a **callback** function as a parameter. THe callback function accepts 2 parameters, `resolve` and `reject` . If the task is successfully performed, then it returns `resolved` .
+Else it returns the `reject` .
 
 This is how a promise in typescript looks like:
 
 ```typescript
-const promise = new Promise(function(resolve, reject){});
+const promise = new Promise(function (resolve, reject) {});
 ```
 
 <!-- markdownlint-disable MD033 -->
@@ -101,24 +101,26 @@ const promise = new Promise(function(resolve, reject){});
 Below is a working example of a promise written in TypeScript.
 
 ```typescript
-function asyncFun(){//a promise
-    const promise = new Promise(function(resolve, reject){
-        setTimeout(()=> {
-            console.log("Console from Promise function");
-            resolve();
-        }, 3000);
-    });
-    return promise;
+function asyncFun() {
+  //a promise
+  const promise = new Promise(function (resolve, reject) {
+    setTimeout(() => {
+      console.log("Console from Promise function");
+      resolve();
+    }, 3000);
+  });
+  return promise;
 }
 // when asyncFun() Promise is returned after executing setTimeout() function,
 // process peeks inside .then() to print the success message.
-asyncFun().then(function(success){
+asyncFun()
+  .then(function (success) {
     console.log("Promise returned Successfully !!!");
-})
-.catch(function(error){
+  })
+  .catch(function (error) {
     //error handler is called when promise gets rejected.
     console.log("error");
-});
+  });
 ```
 
 ## Observable
@@ -126,7 +128,7 @@ asyncFun().then(function(success){
 Observable are like arrays because they represent a collection of events but are also like promises as they're asynchronous: each event in the collection arrives
 at some indeterminate point in the future.
 
-This is distinct from a collection of promises (like `Promise.all`) as an observable can handle an arbitrary number of events, and a promise can only track one thing.
+This is distinct from a collection of promises (like `Promise.all` ) as an observable can handle an arbitrary number of events, and a promise can only track one thing.
 
 An observable can be used to model clicks of a button. It represents all the clicks that will happen over the application's lifetime, but the clicks will happen at some
 point in the future that we can't predict.
@@ -149,8 +151,8 @@ passed into **subscribe** is called every time the observable emits a value (in 
 ```JS
 let myObs$ = clicksOnButton(myButton);
 myObs$
-.subscribe(clickEvent => console.log("The button was clicked!"));
+    .subscribe(clickEvent => console.log("The button was clicked!"));
 ```
 
-One thing to note here is the observables under RxJS are **lazy**. This means that if there's no subscribe call on `myObs$`, no click event handler is created.
-Observables only run when they know someone's listening to the data they're entering.
+One thing to note here is the observables under RxJS are **lazy**. This means that if there's no subscribe call on `myObs$` , no click event handler is created.
+Observables only run when they know someone's listening to the data they're emitting.
